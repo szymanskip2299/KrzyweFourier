@@ -13,6 +13,7 @@ public class test {
 		frame.setSize(640,480);
 		frame.setLayout(new GridLayout(4,1));
 		frame.setVisible(true);
+		//sdsd
 	}
 
 }
