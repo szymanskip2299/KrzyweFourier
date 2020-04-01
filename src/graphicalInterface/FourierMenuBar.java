@@ -1,3 +1,8 @@
+//////////////////////////////
+//Autor:
+//Pawe³ Szymañski
+//////////////////////////////
+
 package graphicalInterface;
 
 import java.awt.FlowLayout;
@@ -13,7 +18,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class FourierMenuBar extends JMenuBar {
+	
 	private JMenu menu;
+	private JMenuItem lineColorChange,backgroundColorChange;
 	
 	public FourierMenuBar() {
 		menu = new JMenu("Menu");
@@ -30,12 +37,9 @@ public class FourierMenuBar extends JMenuBar {
 		});
 		menu.add(autorItem);
 		menu.addSeparator();
-		JMenuItem saveItem= new JMenuItem("Zapisz krzyw¹");
-		menu.add(saveItem);
-		menu.addSeparator();
-		JMenuItem lineColorChange = new JMenuItem("Zmieñ kolor lini");
+		lineColorChange = new JMenuItem("Zmieñ kolor lini");
 		menu.add(lineColorChange);
-		JMenuItem backgroundColorChange = new JMenuItem("Zmieñ kolor t³a");
+		backgroundColorChange = new JMenuItem("Zmieñ kolor t³a");
 		menu.add(backgroundColorChange);
 				
 	}

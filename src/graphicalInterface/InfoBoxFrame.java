@@ -1,3 +1,8 @@
+//////////////////////////////
+//Autor:
+//Pawe³ Szymañski
+//////////////////////////////
+
 package graphicalInterface;
 
 import java.awt.BorderLayout;

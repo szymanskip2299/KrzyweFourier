@@ -1,3 +1,7 @@
+//////////////////////////////
+//Autor:
+//Nika Jurczuk
+//////////////////////////////
 package graphicalInterface;
 
 import java.awt.BorderLayout;
@@ -22,22 +26,22 @@ import javax.swing.SpinnerNumberModel;
 
 public class RightPanel extends JPanel {
 
-	private JPanel rightPanel, centerPanel, panel1, panel2, panel3, panel4,panel5,panel6,panel7;
+	private JPanel panel1, panel2, panel3, panel4,panel5,panel6;
 	private JSpinner elementsSpinner;
 	private JSlider speedSlider;
 	private JLabel label1, label2, label3, label4, label5;
-	private JRadioButton rbutton1, rbutton2,rbutton3, rbutton4;
+	private JRadioButton rButtonParametric, rButtonExamples,rButtonDraw;
 	private JTextField xTField, yTField;
-	private JComboBox box; 
+	private JComboBox comboBoxExaples; 
 	private ButtonGroup bGroup;
 	static final int SLIDER_MIN = 0;
     static final int SLIDER_MAX = 100;
     static final int SLIDER_INIT = 10;
     
 	public RightPanel() {
-		this.setLayout(new GridLayout(10,1));
+		this.setLayout(new GridLayout(9,1));
 	    
-		//FIRST PANEL
+		//PANEL 1 slider
 			    panel1 = new JPanel();
 			    panel1.setLayout(new FlowLayout());
 			    
@@ -48,7 +52,7 @@ public class RightPanel extends JPanel {
 		        panel1.add(speedSlider);
 		        this.add(panel1);
 		        		
-		//PANEL 2       
+		//PANEL 2   spinner
 		        panel2 = new JPanel();
 		        panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        
@@ -64,19 +68,17 @@ public class RightPanel extends JPanel {
 		    this.add(label3);
 		//
 		  
-		//PANEL 3-6 radio buttons        
+		//PANEL 3-5 radio buttons        
 		        panel3 = new JPanel();
 		        panel3.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        
-		        bGroup = new ButtonGroup();
-		        
-		        rbutton1 = new JRadioButton();
+		        rButtonParametric = new JRadioButton();
 		        label4 = new JLabel("x(t)");
 		        xTField = new JTextField(7);
 		        label5 = new JLabel("y(t)");
 		        yTField = new JTextField(7);
 		       
-		        panel3.add(rbutton1);
+		        panel3.add(rButtonParametric);
 		        panel3.add(label4);
 		        panel3.add(xTField);
 		        panel3.add(label5);
@@ -86,44 +88,38 @@ public class RightPanel extends JPanel {
 		        panel4 = new JPanel();
 		        panel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        
-		        rbutton2= new JRadioButton("Przyk³ady");
-		        box = new JComboBox();
+		        rButtonExamples= new JRadioButton("Przyk³ady");
+		        rButtonExamples.setSelected(true);
+		        String[] comboBoxContent= {"Nutka","Serce","Kwiatek"};//new String[3];
+		        comboBoxExaples = new JComboBox(comboBoxContent);
 		        
-		        panel4.add(rbutton2);
-		        panel4.add(box);
+		        
+		        panel4.add(rButtonExamples);
+		        panel4.add(comboBoxExaples);
 		        this.add(panel4);
 		       //
-		        rbutton3 = new JRadioButton("Narysuj");
+		        rButtonDraw = new JRadioButton("Narysuj");
 		        panel5 = new JPanel();
 		        panel5.setLayout(new FlowLayout(FlowLayout.LEFT));
-		        panel5.add(rbutton3);
-		      //
-		        rbutton4 = new JRadioButton("Otwórz z pliku");
-
-		        panel6 = new JPanel();
-		        panel6.setLayout(new FlowLayout(FlowLayout.LEFT));
-		        panel6.add(rbutton4);
+		        panel5.add(rButtonDraw);
 		        this.add(panel5);
-		        this.add(panel6);
 		      //		     
-		        bGroup.add(rbutton1);   
-		        bGroup.add(rbutton2);
-		        bGroup.add(rbutton3);
-		        bGroup.add(rbutton4);
+		        bGroup = new ButtonGroup();
+		        bGroup.add(rButtonParametric);   
+		        bGroup.add(rButtonExamples);
+		        bGroup.add(rButtonDraw);
 		        
 		//Border
 		   		panel3.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.black));
 		   		panel4.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.black));
-		   		panel5.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.black));
-		   		panel6.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.black));
-		   		
-		//PANEL 7 - checkbox
-		   		panel7=new JPanel();
-		        panel7.setLayout(new FlowLayout(FlowLayout.LEFT));
+		   		panel5.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.black));		   		
+		//PANEL 6 - checkbox
+		   		panel6=new JPanel();
+		        panel6.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        JCheckBox originalChBox= new JCheckBox("Poka¿ orygina³");
 		        originalChBox.setSelected(true);
-		        panel7.add(originalChBox);
-		        this.add(panel7);
+		        panel6.add(originalChBox);
+		        this.add(panel6);
 
 		//Start/Stop button
 		   		JButton startStopButton = new JButton("START/STOP");

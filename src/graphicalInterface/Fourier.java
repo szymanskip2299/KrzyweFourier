@@ -1,3 +1,7 @@
+//////////////////////////////
+//Autor:
+//Nika Jurczuk
+//////////////////////////////
 package graphicalInterface;
 
 import javax.swing.*;
@@ -13,7 +17,7 @@ public class Fourier extends JFrame
 {
 	
 	private FourierMenuBar menuBar;
-
+	private RightPanel rightPanel;
     
     public Fourier()
     {
@@ -25,7 +29,7 @@ public class Fourier extends JFrame
 	    menuBar = new FourierMenuBar();
 		this.setJMenuBar(menuBar);;
 //right panel
-	    RightPanel rightPanel = new RightPanel();
+		rightPanel = new RightPanel();
    		this.add(rightPanel, BorderLayout.LINE_END);   		
    		
    		
