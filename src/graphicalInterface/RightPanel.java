@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,9 +25,14 @@ import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import org.apache.commons.math3.complex.Complex;
 
 public class RightPanel extends JPanel {
-
+	private boolean isRunning;
+	private CenterPanel centerPanel;
 	private JPanel panel1, panel2, panel3, panel4,panel5,panel6;
 	private JSpinner elementsSpinner;
 	private JSlider speedSlider;
@@ -36,9 +43,11 @@ public class RightPanel extends JPanel {
 	private ButtonGroup bGroup;
 	static final int SLIDER_MIN = 0;
     static final int SLIDER_MAX = 100;
-    static final int SLIDER_INIT = 10;
+    static final int SLIDER_INIT = 50;
     
-	public RightPanel() {
+	public RightPanel(CenterPanel cent) {
+		centerPanel=cent;
+		isRunning=false;
 		this.setLayout(new GridLayout(9,1));
 	    
 		//PANEL 1 slider
@@ -47,6 +56,14 @@ public class RightPanel extends JPanel {
 			    
 			    label1= new JLabel("Szybkoœæ animacji");
 			    speedSlider = new JSlider(JSlider.HORIZONTAL, SLIDER_MIN, SLIDER_MAX, SLIDER_INIT);
+			    speedSlider.addChangeListener(new ChangeListener() {
+
+					@Override
+					public void stateChanged(ChangeEvent e) {
+						centerPanel.setSpeed((double)speedSlider.getValue()/1000);
+					}
+			    	
+			    });
 		        speedSlider.setPreferredSize(new Dimension(150,50));		        
 		        panel1.add(label1);
 		        panel1.add(speedSlider);
@@ -123,6 +140,7 @@ public class RightPanel extends JPanel {
 
 		//Start/Stop button
 		   		JButton startStopButton = new JButton("START/STOP");
+		   		startStopButton.addActionListener(new StartStopActionListener());
 		   		this.add(startStopButton);
 	}
 
@@ -140,5 +158,34 @@ public class RightPanel extends JPanel {
 		super(layout, isDoubleBuffered);
 		// TODO Auto-generated constructor stub
 	}
+	public class StartStopActionListener implements ActionListener{
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(!isRunning) {
+				if(rButtonDraw.isSelected()) {
+					DrawingFrame drawingFrame=new DrawingFrame();
+					drawingFrame.setVisible(true);
+				}
+				else if(rButtonExamples.isSelected()) {
+					
+				}
+				else {
+					
+				}
+				
+		        //TEST potem usun¹c
+				Complex[] comp=new Complex[10];
+				for(int i=0;i<10;i++) {
+					comp[i]=new Complex(Math.random()*150-75,Math.random()*150-75);
+				}
+				centerPanel.startAnimation(comp);
+			}
+			else {
+				centerPanel.stopAnimation();
+			}
+			isRunning=!isRunning;
+		}
+		
+	}
 }
