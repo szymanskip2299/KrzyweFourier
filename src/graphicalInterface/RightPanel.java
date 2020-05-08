@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -74,7 +75,15 @@ public class RightPanel extends JPanel {
 		        panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        
 		        label2 = new JLabel("Iloœæ elementów");
-		        elementsSpinner = new JSpinner(new SpinnerNumberModel(50,0,100,1));  
+		        elementsSpinner = new JSpinner(new SpinnerNumberModel(3,0,100,1)); 
+		        elementsSpinner.addChangeListener(new ChangeListener() {
+
+					@Override
+					public void stateChanged(ChangeEvent e) {
+						centerPanel.setElements((int)elementsSpinner.getValue());
+						
+					}
+			    });
 		        
 		        panel2.add(label2);
 		        panel2.add(elementsSpinner);
@@ -175,10 +184,12 @@ public class RightPanel extends JPanel {
 				}
 				
 		        //TEST potem usun¹c
-				Complex[] comp=new Complex[10];
-				for(int i=0;i<10;i++) {
+				Complex[] comp=new Complex[(int) elementsSpinner.getValue()+1];
+				for(int i=0;i<(int) elementsSpinner.getValue()+1;i++) {
 					comp[i]=new Complex(Math.random()*150-75,Math.random()*150-75);
+					  
 				}
+				
 				centerPanel.startAnimation(comp);
 			}
 			else {

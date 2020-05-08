@@ -6,20 +6,25 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 import org.apache.commons.math3.complex.Complex;
+
+
+
+
 
 public class CenterPanel extends JPanel {
 	private Complex[] an; // tablica wspo³czynnikow we wzorze fouriera, w kolejnosci 0,1,-1,2,-2 itd
 	private Timer timer;
 	private double speed;
+	private int elements;
 	private Color lineColor;
 	public CenterPanel() {
 		lineColor=Color.black;
 		speed=0.05;
+		elements = 50;
+		
 	}
 	public CenterPanel(LayoutManager layout) {
 		super(layout);
@@ -38,6 +43,10 @@ public class CenterPanel extends JPanel {
 	public void setSpeed(double sp) {
 		speed=sp;
 	}
+	public void setElements (int el)
+	{
+		el=elements;
+	}
 	public void startAnimation(Complex[] comp) {
 		an=comp;
 		timer=new Timer(33,null);
@@ -50,7 +59,7 @@ public class CenterPanel extends JPanel {
 			}
 			
 		});
-		timer.start();
+		timer.start(); 
 	}
 	public void stopAnimation() {
 		an=null;
@@ -70,6 +79,8 @@ public class CenterPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D)g;
+		setBackground(Color.white);
+		g2d.setColor(lineColor);
 		if(an!=null) {
 			g2d.setColor(lineColor);
 			int startPointX=(int) getWidth()/2;
