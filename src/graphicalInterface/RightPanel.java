@@ -75,15 +75,7 @@ public class RightPanel extends JPanel {
 		        panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        
 		        label2 = new JLabel("Iloœæ elementów");
-		        elementsSpinner = new JSpinner(new SpinnerNumberModel(3,0,100,1)); 
-		        elementsSpinner.addChangeListener(new ChangeListener() {
-
-					@Override
-					public void stateChanged(ChangeEvent e) {
-						centerPanel.setElements((int)elementsSpinner.getValue());
-						
-					}
-			    });
+		        elementsSpinner = new JSpinner(new SpinnerNumberModel(10,0,100,1)); 
 		        
 		        panel2.add(label2);
 		        panel2.add(elementsSpinner);
@@ -115,7 +107,6 @@ public class RightPanel extends JPanel {
 		        panel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        
 		        rButtonExamples= new JRadioButton("Przyk³ady");
-		        rButtonExamples.setSelected(true);
 		        String[] comboBoxContent= {"Nutka","Serce","Kwiatek"};//new String[3];
 		        comboBoxExaples = new JComboBox(comboBoxContent);
 		        
@@ -125,6 +116,7 @@ public class RightPanel extends JPanel {
 		        this.add(panel4);
 		       //
 		        rButtonDraw = new JRadioButton("Narysuj");
+		        rButtonDraw.setSelected(true);
 		        panel5 = new JPanel();
 		        panel5.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        panel5.add(rButtonDraw);
@@ -138,12 +130,20 @@ public class RightPanel extends JPanel {
 		//Border
 		   		panel3.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.black));
 		   		panel4.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.black));
-		   		panel5.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.black));		   		
+		   		panel5.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.black));		 
+		   		
 		//PANEL 6 - checkbox
 		   		panel6=new JPanel();
 		        panel6.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        JCheckBox originalChBox= new JCheckBox("Poka¿ orygina³");
 		        originalChBox.setSelected(true);
+		        originalChBox.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						centerPanel.setShowingOriginal(originalChBox.isSelected());
+					}
+		        	
+		        });
 		        panel6.add(originalChBox);
 		        this.add(panel6);
 
@@ -173,8 +173,10 @@ public class RightPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(!isRunning) {
 				if(rButtonDraw.isSelected()) {
-					DrawingFrame drawingFrame=new DrawingFrame();
+					int elements=(int)elementsSpinner.getValue();
+					DrawingFrame drawingFrame=new DrawingFrame(centerPanel,elements);
 					drawingFrame.setVisible(true);
+					isRunning=!isRunning;     //to powinno byc poza if elsami ale póki tamtych niema musi byc tu
 				}
 				else if(rButtonExamples.isSelected()) {
 					
@@ -183,19 +185,12 @@ public class RightPanel extends JPanel {
 					
 				}
 				
-		        //TEST potem usun¹c
-				Complex[] comp=new Complex[(int) elementsSpinner.getValue()+1];
-				for(int i=0;i<(int) elementsSpinner.getValue()+1;i++) {
-					comp[i]=new Complex(Math.random()*150-75,Math.random()*150-75);
-					  
-				}
-				
-				centerPanel.startAnimation(comp);
 			}
 			else {
 				centerPanel.stopAnimation();
+				isRunning=!isRunning;
 			}
-			isRunning=!isRunning;
+			
 		}
 		
 	}

@@ -1,3 +1,7 @@
+//////////////////////////////
+//Autor:
+//Pawe³ Szymañski
+//////////////////////////////
 package graphicalInterface;
 
 import java.awt.Color;
@@ -12,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import org.apache.commons.math3.complex.Complex;
 
 public class DrawingPanel extends JPanel implements MouseMotionListener, MouseListener{
 
@@ -54,21 +60,25 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 		repaint();
 	}
 	
-	public int[][] getPoints(){ //ta funkcja zwaraca macierz gdzie kazda klumna odpowiada jednemu punktowi do ca³ki
+	public Complex[] getPoints(){ //ta funkcja zwaraca macierz gdzie kazda klumna odpowiada jednemu punktowi do ca³ki
 		int size=0;
 		for(Line line:lines) { //liczymy sume dlugosci wszystkich liñ
 			size+=line.getLength();
 		}
-		int[][] points=new int[size][2];
+		Complex[] points=new Complex[size];
 		int j=0;
 		for(Line line:lines) {    //bierzemy wszsytkie punkty z wszystkich lin do jednej 
 			for(int i=0;i<line.getLength();i++) {
-				points[j][0]=line.getX(i)-(int)(getWidth()/2);    //punkty maja wspólrzedne jak w kartezjanskim o srodku w srodku panelu
-				points[j][1]=-line.getY(i)+(int)(getHeight()/2);
+				int x=line.getX(i)-(int)(getWidth()/2);    //punkty maja wspólrzedne jak w kartezjanskim o srodku w srodku panelu
+				int y=-line.getY(i)+(int)(getHeight()/2);
+				points[j]=new Complex(x,y);
 				j++;
 			}
 		}
 		return points;
+	}
+	public List<Line> getLines(){
+		return lines;
 	}
 
 	@Override

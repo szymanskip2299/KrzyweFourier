@@ -1,3 +1,7 @@
+//////////////////////////////
+//Autor:
+//Pawe³ Szymañski
+//////////////////////////////
 package graphicalInterface;
 
 import java.awt.BorderLayout;
@@ -10,9 +14,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.apache.commons.math3.complex.Complex;
+
 public class DrawingFrame extends JFrame {
 	private DrawingPanel drawingPanel;
-	public DrawingFrame() throws HeadlessException {
+	private CenterPanel centerPanel;
+	private int elements;
+	public DrawingFrame(CenterPanel cent,int el) throws HeadlessException {
+		elements=el;
+		centerPanel=cent;
 		setSize(620,600);
 		setLayout(new BorderLayout());
 		
@@ -27,8 +37,9 @@ public class DrawingFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//tutaj powinnien podawac dane do liczenia
-				drawingPanel.getPoints();
+				Complex[] an=MathClass.fourier(drawingPanel.getPoints(),elements);
+				centerPanel.startAnimation(an);
+				centerPanel.setOriginal(drawingPanel.getLines());
 				dispose();
 			}
 			
@@ -63,5 +74,7 @@ public class DrawingFrame extends JFrame {
 		super(title, gc);
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 }

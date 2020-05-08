@@ -41,4 +41,8 @@ public class Line {
 	       public int getY(int i) {
 	    	   return yList.get(i);
 	       }
+	       public void deleteLast() {
+	    	   xList.remove(0);
+	    	   yList.remove(0);
+	       }
 	}

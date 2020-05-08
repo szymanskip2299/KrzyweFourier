@@ -1,3 +1,7 @@
+//////////////////////////////
+//Autor:
+//Pawe³ Szymañski
+//////////////////////////////
 package graphicalInterface;
 
 import java.awt.Color;
@@ -6,6 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import org.apache.commons.math3.complex.Complex;
@@ -18,17 +24,18 @@ public class CenterPanel extends JPanel {
 	private Complex[] an; // tablica wspo³czynnikow we wzorze fouriera, w kolejnosci 0,1,-1,2,-2 itd
 	private Timer timer;
 	private double speed;
-	private int elements;
 	private Color lineColor;
+	private Line trace;
+	private List<Line> original;
+	private boolean isShowingOriginal;
 	public CenterPanel() {
 		lineColor=Color.black;
 		speed=0.05;
-		elements = 50;
-		
+		trace=new Line();
+		isShowingOriginal=true;
 	}
 	public CenterPanel(LayoutManager layout) {
 		super(layout);
-		// TODO Auto-generated constructor stub
 	}
 
 	public CenterPanel(boolean isDoubleBuffered) {
@@ -43,13 +50,10 @@ public class CenterPanel extends JPanel {
 	public void setSpeed(double sp) {
 		speed=sp;
 	}
-	public void setElements (int el)
-	{
-		el=elements;
-	}
+
 	public void startAnimation(Complex[] comp) {
 		an=comp;
-		timer=new Timer(33,null);
+		timer=new Timer(16,null);
 		timer.addActionListener(new ActionListener(){
 
 			@Override
@@ -63,6 +67,7 @@ public class CenterPanel extends JPanel {
 	}
 	public void stopAnimation() {
 		an=null;
+		trace=new Line();
 		repaint();
 		timer.stop();
 	}
@@ -74,6 +79,7 @@ public class CenterPanel extends JPanel {
 			else {
 				an[i]=an[i].multiply(new Complex(0,-speed*Math.ceil((double)i/2)).exp());
 			}
+			
 		}
 	}
 	public void paintComponent(Graphics g) {
@@ -85,14 +91,35 @@ public class CenterPanel extends JPanel {
 			g2d.setColor(lineColor);
 			int startPointX=(int) getWidth()/2;
 			int startpointY= (int) getHeight()/2;
-			for(int i=0;i<an.length-1;i++) {
-				int endPointX=(int)(startPointX+an[i].getReal());
-				int endPointY=(int)(startpointY-an[i].getImaginary());//minus jest bo w javie os Y idzie w dól a w matematyce w góre
+			int endPointX=0;
+			int endPointY=0;
+			for(int i=0;i<an.length;i++) {
+				endPointX=(int)(startPointX+an[i].getReal());
+				endPointY=(int)(startpointY-an[i].getImaginary());//minus jest bo w javie os Y idzie w dól a w matematyce w góre
 				g2d.drawLine(startPointX,startpointY,endPointX,endPointY);
 				startPointX=endPointX;
 				startpointY=endPointY;
 			}
+			
+			
+			trace.addPoint(endPointX, endPointY);
+			if(trace.getLength()>2*Math.PI/speed) {
+				trace.deleteLast();
+			}
+			trace.draw(g2d);
+			if(isShowingOriginal) {
+				for(Line line:original) {
+					line.draw(g2d);
+				}
+			}
 		}
+	}
+	public void setOriginal(List<Line> lines) {
+		original=lines;
+		
+	}
+	public void setShowingOriginal(boolean orig) {
+		isShowingOriginal=orig;
 	}
 
 }
