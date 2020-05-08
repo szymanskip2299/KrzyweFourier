@@ -4,6 +4,7 @@
 //////////////////////////////
 package graphicalInterface;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -89,20 +90,18 @@ public class CenterPanel extends JPanel {
 		g2d.setColor(lineColor);
 		if(an!=null) {
 			g2d.setColor(lineColor);
-			int startPointX=(int) getWidth()/2;
-			int startpointY= (int) getHeight()/2;
-			int endPointX=0;
-			int endPointY=0;
+			Complex sum=new Complex(getWidth()/2,getHeight()/2);
 			for(int i=0;i<an.length;i++) {
-				endPointX=(int)(startPointX+an[i].getReal());
-				endPointY=(int)(startpointY-an[i].getImaginary());//minus jest bo w javie os Y idzie w dól a w matematyce w góre
+				int startPointX=(int) sum.getReal();
+				int startpointY= (int) sum.getImaginary();
+				sum=sum.add(an[i].conjugate());
+				int endPointX=(int) sum.getReal();
+				int endPointY= (int) sum.getImaginary();//minus jest bo w javie os Y idzie w dól a w matematyce w góre
 				g2d.drawLine(startPointX,startpointY,endPointX,endPointY);
-				startPointX=endPointX;
-				startpointY=endPointY;
 			}
 			
 			
-			trace.addPoint(endPointX, endPointY);
+			trace.addPoint((int) sum.getReal(), (int) sum.getImaginary());
 			if(trace.getLength()>2*Math.PI/speed) {
 				trace.deleteLast();
 			}

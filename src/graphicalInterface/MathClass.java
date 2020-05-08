@@ -28,10 +28,9 @@ public class MathClass {
 			}
 			
 			for (int j = 0; j < L; j++) {
-				sum=sum.add(data[j].multiply(Complex.I.multiply(-index*2*Math.PI*(j+0.5)/L).exp()));
+				sum=sum.add(data[j].multiply(Complex.I.multiply(-index*2*Math.PI*(j)/L).exp()));
 			}
 			fourier[n]=sum.divide(L);
-			System.out.println(fourier[n]);
 		}
 		
 		return fourier;
