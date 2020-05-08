@@ -4,35 +4,39 @@
 
 package graphicalInterface;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.math3.complex.Complex;
 
 public class MathClass {
 
 
-	public MathClass() {
-		
-		public static ArrayList <double[]> fourier(ArrayList <Double> data, double rotation) {
-			int N = data.size();
-			ArrayList<double[]> fourier = new ArrayList<double[]>();
+	
+	public static Complex[] fourier(Complex[] data,int elements){
+		int L = data.length;
+		Complex[] fourier = new Complex[elements];
 
-			for (int k = 0; k < N; k++) {
-				double re = 0;
-				double im = 0;
-				for (int n = 0; n < N; n++) {
-					re += data.get(n) * Math.cos((2 * Math.PI * k * n) / N);
-					im -= data.get(n) * Math.sin((2 * Math.PI * k * n) / N);
-				}
-				re = re / N;
-				im = im / N;
-				double amp = Math.sqrt(re * re + im * im);
-				double freq = k;
-				double phase = Math.atan2(im, re);
-				fourier.add(new double[] {freq, amp, phase, rotation});
+		for (int n = 0; n < elements; n++) {//liczy wspo³czynniki w kolejnosci 0,1,-1,2,-2,itd
+			Complex sum=new Complex(0,0);
+			
+			int index;//nr wspolczynika we wzorze fouriera
+			if(n%2==1) {
+				index=(int) Math.ceil((double)n/2);
+			}
+			else {
+				index=-(int)Math.ceil((double)n/2);
 			}
 			
-			return fourier;
+			for (int j = 0; j < L; j++) {
+				sum=sum.add(data[j].multiply(Complex.I.multiply(-index*2*Math.PI*(j+0.5)/L).exp()));
+			}
+			fourier[n]=sum.divide(L);
+			System.out.println(fourier[n]);
 		}
+		
+		return fourier;
 	}
+	
 	
 }
 
