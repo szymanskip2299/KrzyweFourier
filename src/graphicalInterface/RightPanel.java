@@ -4,14 +4,21 @@
 //////////////////////////////
 package graphicalInterface;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.List;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
@@ -31,9 +38,11 @@ import javax.swing.event.ChangeListener;
 
 import org.apache.commons.math3.complex.Complex;
 
+
 public class RightPanel extends JPanel {
 	private boolean isRunning;
 	private CenterPanel centerPanel;
+	private Examples ex;
 	private JPanel panel1, panel2, panel3, panel4,panel5,panel6;
 	private JSpinner elementsSpinner;
 	private JSlider speedSlider;
@@ -47,6 +56,7 @@ public class RightPanel extends JPanel {
     static final int SLIDER_INIT = 50;
     
 	public RightPanel(CenterPanel cent) {
+		
 		centerPanel=cent;
 		isRunning=false;
 		this.setLayout(new GridLayout(9,1));
@@ -107,8 +117,8 @@ public class RightPanel extends JPanel {
 		        panel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        
 		        rButtonExamples= new JRadioButton("Przyk³ady");
-		        String[] comboBoxContent= {"Nutka","Serce","Kwiatek"};//new String[3];
-		        comboBoxExaples = new JComboBox(comboBoxContent);
+		        String[] comboBoxContent= {"Lemniskata Bernoulliego","Trifolium","Kardioida"};//new String[3];
+		        comboBoxExaples = new JComboBox(comboBoxContent);	       
 		        
 		        
 		        panel4.add(rButtonExamples);
@@ -168,6 +178,7 @@ public class RightPanel extends JPanel {
 		// TODO Auto-generated constructor stub
 	}
 	public class StartStopActionListener implements ActionListener{
+		
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -176,11 +187,26 @@ public class RightPanel extends JPanel {
 					int elements=(int)elementsSpinner.getValue();
 					DrawingFrame drawingFrame=new DrawingFrame(centerPanel,elements);
 					drawingFrame.setVisible(true);
-					isRunning=!isRunning;     //to powinno byc poza if elsami ale póki tamtych niema musi byc tu
+					isRunning=!isRunning;  //to powinno byc poza if elsami ale póki tamtych niema musi byc tu
 				}
 				else if(rButtonExamples.isSelected()) {
-					
+
+	                String selected = (String) comboBoxExaples.getSelectedItem();
+	         
+	                if (selected.equals("Lemniskata Bernoulliego")) {
+	                	int elements=(int)elementsSpinner.getValue();
+	                	Examples ex = new Examples(elements);
+	                	ex.setVisible(true);
+	                	
+	                }	                	
+	                else if (selected.equals("Trifolium")) {
+
+			                }
+	                else if (selected.equals("Kardioida")) {
+
+	                }				
 				}
+				
 				else {
 					
 				}
@@ -190,6 +216,8 @@ public class RightPanel extends JPanel {
 				centerPanel.stopAnimation();
 				isRunning=!isRunning;
 			}
+			
+        
 			
 		}
 		

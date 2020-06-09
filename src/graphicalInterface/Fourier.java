@@ -22,21 +22,24 @@ public class Fourier extends JFrame
     private CenterPanel centerPanel;
     public Fourier()
     {
+    	
 	    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    this.setSize(900,600);
 	    this.setLayout(new BorderLayout());
 	    
-//MENU
-	    menuBar = new FourierMenuBar();
-		this.setJMenuBar(menuBar);;
-
-   		
-   		
-//center panel
+	  //center panel
         centerPanel = new CenterPanel();
         centerPanel.setBackground(Color.white);
         
         this.add(centerPanel,BorderLayout.CENTER);
+	    
+//MENU
+	    menuBar = new FourierMenuBar(centerPanel);
+		this.setJMenuBar(menuBar);;
+
+   		
+   		
+
         
 //right panel
       	rightPanel = new RightPanel(centerPanel);

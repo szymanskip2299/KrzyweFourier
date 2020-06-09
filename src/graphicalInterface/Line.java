@@ -8,11 +8,12 @@ import java.util.List;
 
 public class Line {
 
-	       private List<Integer> xList;  // Lista wspó³rzêdnych x 
-	       private List<Integer> yList;  // Lista wspó³rzêdnych y
+	       private ArrayList<Integer> xList;  // Lista wspó³rzêdnych x 
+	       private ArrayList<Integer> yList;  // Lista wspó³rzêdnych y
+
 
 	       public Line() {
-	          xList = new ArrayList<Integer>();
+	          xList =new ArrayList<Integer>();
 	          yList = new ArrayList<Integer>();
 	       }
 	     
@@ -35,14 +36,40 @@ public class Line {
 	       public int getLength() {
 	    	   return xList.size();
 	       }
+	       public void setxList(ArrayList<Integer> l)
+	       {
+	    	   l=xList;
+	       }
+	       public void setyList(ArrayList<Integer> ll)
+	       {
+	    	   ll=yList;
+	       }
 	       public int getX(int i) {
 	    	   return xList.get(i);
 	       }
+
 	       public int getY(int i) {
 	    	   return yList.get(i);
 	       }
+	      
 	       public void deleteLast() {
 	    	   xList.remove(0);
 	    	   yList.remove(0);
 	       }
-	}
+	       public void wypisz() // to zeby wziac punkty do przykladu
+	       {
+	    	  for (int i=0;i<xList.size();i++)
+	    	  {
+	    		 System.out.print(xList.get(i)+", ");
+	    	  }	  
+	    	  System.out.print("\n");
+	    	  for (int i=0;i<yList.size();i++)
+	    	  {
+	    		 System.out.print(yList.get(i)+", ");
+
+
+	    	  }	  
+
+	       }}
+		
+

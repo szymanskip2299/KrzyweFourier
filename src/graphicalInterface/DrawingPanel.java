@@ -29,6 +29,7 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
 		
+		
 	}	
 
 	public DrawingPanel(LayoutManager layout) {
@@ -60,6 +61,8 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 		repaint();
 	}
 	
+	 
+	
 	public Complex[] getPoints(){ //ta funkcja zwaraca macierz gdzie kazda klumna odpowiada jednemu punktowi do ca³ki
 		int size=0;
 		for(Line line:lines) { //liczymy sume dlugosci wszystkich liñ
@@ -73,6 +76,7 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 				int y=-line.getY(i)+(int)(getHeight()/2);
 				points[j]=new Complex(x,y);
 				j++;
+			
 			}
 		}
 		return points;
@@ -86,6 +90,7 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 		
 		lines.get(lines.size()-1).addPoint(e.getX(),e.getY());
 		repaint();
+
 
 	}
 

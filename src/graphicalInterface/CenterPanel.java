@@ -9,8 +9,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -18,17 +20,15 @@ import javax.swing.Timer;
 import org.apache.commons.math3.complex.Complex;
 
 
-
-
-
 public class CenterPanel extends JPanel {
 	private Complex[] an; // tablica wspo³czynnikow we wzorze fouriera, w kolejnosci 0,1,-1,2,-2 itd
 	private Timer timer;
 	private double speed;
-	private Color lineColor;
+	public Color lineColor;
 	private Line trace;
 	private List<Line> original;
 	private boolean isShowingOriginal;
+	
 	public CenterPanel() {
 		lineColor=Color.black;
 		speed=0.05;
@@ -51,6 +51,10 @@ public class CenterPanel extends JPanel {
 	public void setSpeed(double sp) {
 		speed=sp;
 	}
+	
+	  public void setColor(Color c) {
+	        this.lineColor = c;
+	    }
 
 	public void startAnimation(Complex[] comp) {
 		an=comp;
@@ -65,13 +69,19 @@ public class CenterPanel extends JPanel {
 			
 		});
 		timer.start(); 
+		
 	}
 	public void stopAnimation() {
 		an=null;
 		trace=new Line();
 		repaint();
 		timer.stop();
+		for(Line line : original) {
+			line.wypisz();
+		}
 	}
+	
+	
 	public void update() {
 		for(int i=0;i<an.length;i++) {
 			if(i%2==1) {//nieparzyste kreca sie nizgodnie do wskazówek zegara
@@ -86,7 +96,7 @@ public class CenterPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D)g;
-		setBackground(Color.white);
+		g2d.setBackground(Color.white);
 		g2d.setColor(lineColor);
 		if(an!=null) {
 			g2d.setColor(lineColor);
@@ -98,7 +108,11 @@ public class CenterPanel extends JPanel {
 				int endPointX=(int) sum.getReal();
 				int endPointY= (int) sum.getImaginary();//minus jest bo w javie os Y idzie w dól a w matematyce w góre
 				g2d.drawLine(startPointX,startpointY,endPointX,endPointY);
-			}
+		
+
+
+				}
+			
 			
 			
 			trace.addPoint((int) sum.getReal(), (int) sum.getImaginary());
@@ -120,5 +134,6 @@ public class CenterPanel extends JPanel {
 	public void setShowingOriginal(boolean orig) {
 		isShowingOriginal=orig;
 	}
+	
 
 }
