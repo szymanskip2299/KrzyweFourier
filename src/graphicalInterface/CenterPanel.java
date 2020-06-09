@@ -76,9 +76,9 @@ public class CenterPanel extends JPanel {
 		trace=new Line();
 		repaint();
 		timer.stop();
-		for(Line line : original) {
-			line.wypisz();
-		}
+//		for(Line line : original) {
+//			line.wypisz();
+//		}
 	}
 	
 	

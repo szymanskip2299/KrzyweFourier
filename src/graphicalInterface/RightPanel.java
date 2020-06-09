@@ -26,7 +26,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
@@ -185,9 +187,9 @@ public class RightPanel extends JPanel {
 			if(!isRunning) {
 				if(rButtonDraw.isSelected()) {
 					int elements=(int)elementsSpinner.getValue();
-					DrawingFrame drawingFrame=new DrawingFrame(centerPanel,elements);
+					DrawingFrame drawingFrame=new DrawingFrame(centerPanel,RightPanel.this,elements);
 					drawingFrame.setVisible(true);
-					isRunning=!isRunning;  //to powinno byc poza if elsami ale póki tamtych niema musi byc tu
+					
 				}
 				else if(rButtonExamples.isSelected()) {
 
@@ -208,7 +210,28 @@ public class RightPanel extends JPanel {
 				}
 				
 				else {
-					
+					try {
+					double points[][]=MathClass.parametricPoints(xTField.getText(), yTField.getText());
+					ArrayList<Line> lines=new ArrayList<Line>();
+					Line line=new Line();
+					Complex data[]=new Complex[points.length];
+					for(int i=0;i<data.length;i++) {
+						line.addPoint((int)points[i][0],-(int)points[i][1]);
+						data[i]=new Complex(points[i][0],points[i][1]);
+					}
+					line.addToAll((int)(centerPanel.getWidth()*0.5),(int)(centerPanel.getHeight()*0.5) );
+					lines.add(line);
+					Complex an[]=MathClass.fourier(data,(int)elementsSpinner.getValue());
+					centerPanel.setOriginal(lines);
+					centerPanel.startAnimation(an);
+					isRunning=!isRunning;
+					}
+					catch(IllegalArgumentException exc) {
+						JOptionPane.showMessageDialog(new JFrame(),
+							    "B³êdnie wpisane równanie parametryczne",
+							    "B³¹d",
+							    JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				
 			}
@@ -221,5 +244,8 @@ public class RightPanel extends JPanel {
 			
 		}
 		
+	}
+	public void setRunning(boolean b) {
+		isRunning=b;
 	}
 }

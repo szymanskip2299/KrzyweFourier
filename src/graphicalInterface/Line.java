@@ -51,7 +51,12 @@ public class Line {
 	       public int getY(int i) {
 	    	   return yList.get(i);
 	       }
-	      
+	       public void addToAll(int x,int y) {
+	    	   for(int i=0;i<xList.size();i++) {
+	    		   xList.set(i, xList.get(i)+x);
+	    		   yList.set(i, yList.get(i)+y);
+	    	   }
+	       }
 	       public void deleteLast() {
 	    	   xList.remove(0);
 	    	   yList.remove(0);

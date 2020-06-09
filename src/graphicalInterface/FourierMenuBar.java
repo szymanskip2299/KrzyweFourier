@@ -20,7 +20,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import ex_test.PaintingFrame;
 
 public class FourierMenuBar extends JMenuBar {
 	
