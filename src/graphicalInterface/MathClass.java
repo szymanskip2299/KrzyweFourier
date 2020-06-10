@@ -39,14 +39,14 @@ public class MathClass {
 	
 	
 	public static Complex[] fourier(Complex[] data,int elements){
-		int L = data.length;
+		
 		Complex[] fourier = new Complex[elements];
 		if(data.length<10*elements) {  //jak data jest za mala to tworzy bardzo niedokladne wyniki
 			int ile_razy=(int)(10*elements/data.length);
 			data=multiplyTable(data,ile_razy);
 		}
-		
-		for (int n = 0; n < elements; n++) {//liczy wspo³czynniki w kolejnosci 0,1,-1,2,-2,itd
+		int L = data.length;
+		for (int n = 0; n < elements; n++) {//liczy wspoÂ³czynniki w kolejnosci 0,1,-1,2,-2,itd
 			Complex sum=new Complex(0,0);
 			
 			int index;//nr wspolczynika we wzorze fouriera
