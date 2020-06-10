@@ -31,7 +31,7 @@ public class InfoBoxFrame extends JFrame {
 		super(title);
 		this.setLayout(new BorderLayout());
 		this.setVisible(true);
-		this.setSize(240,100);
+		this.setSize(290,100);
 		this.add(new JLabel(info),BorderLayout.CENTER);
 		JButton okButton=new JButton("Ok");
 		okButton.addActionListener(new ActionListener() {

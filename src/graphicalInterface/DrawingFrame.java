@@ -51,6 +51,8 @@ public class DrawingFrame extends JFrame {
 				centerPanel.setOriginal(lines);
 				rightPanel.setRunning(true);
 				dispose();
+				
+
 			}
 			
 		});

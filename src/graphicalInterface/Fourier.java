@@ -26,6 +26,7 @@ public class Fourier extends JFrame
 	    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    this.setSize(900,600);
 	    this.setLayout(new BorderLayout());
+	    this.setTitle("Krzywe Fouriera");
 	    
 	  //center panel
         centerPanel = new CenterPanel();

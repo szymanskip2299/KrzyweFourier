@@ -44,7 +44,7 @@ import org.apache.commons.math3.complex.Complex;
 public class RightPanel extends JPanel {
 	private boolean isRunning;
 	private CenterPanel centerPanel;
-	private Examples ex;
+	private Lemniskata ex;
 	private JPanel panel1, panel2, panel3, panel4,panel5,panel6;
 	private JSpinner elementsSpinner;
 	private JSlider speedSlider;
@@ -185,8 +185,9 @@ public class RightPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(!isRunning) {
+				int elements=(int)elementsSpinner.getValue();
+
 				if(rButtonDraw.isSelected()) {
-					int elements=(int)elementsSpinner.getValue();
 					DrawingFrame drawingFrame=new DrawingFrame(centerPanel,RightPanel.this,elements);
 					drawingFrame.setVisible(true);
 					
@@ -196,16 +197,20 @@ public class RightPanel extends JPanel {
 	                String selected = (String) comboBoxExaples.getSelectedItem();
 	         
 	                if (selected.equals("Lemniskata Bernoulliego")) {
-	                	int elements=(int)elementsSpinner.getValue();
-	                	Examples ex = new Examples(elements);
-	                	ex.setVisible(true);
+	                	Lemniskata lem = new Lemniskata(centerPanel, elements);
+	                	lem.setVisible(true);
 	                	
 	                }	                	
 	                else if (selected.equals("Trifolium")) {
-
-			                }
+	                	
+	                	Trifolium trif = new Trifolium(centerPanel, elements);
+	                	trif.setVisible(true);
+	   				 }
+	   			
+	                
 	                else if (selected.equals("Kardioida")) {
-
+	                	Kardioida kar = new Kardioida(centerPanel, elements);
+	                	kar.setVisible(true);
 	                }				
 				}
 				

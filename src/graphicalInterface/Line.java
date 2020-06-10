@@ -36,14 +36,14 @@ public class Line {
 	       public int getLength() {
 	    	   return xList.size();
 	       }
-	       public void setxList(ArrayList<Integer> l)
-	       {
-	    	   l=xList;
-	       }
-	       public void setyList(ArrayList<Integer> ll)
-	       {
-	    	   ll=yList;
-	       }
+//	       public void setxList(ArrayList<Integer> l)
+//	       {
+//	    	   xList=l;
+//	       }
+//	       public void setyList(ArrayList<Integer> ll)
+//	       {
+//	    	   yList=ll;
+//	       }
 	       public int getX(int i) {
 	    	   return xList.get(i);
 	       }

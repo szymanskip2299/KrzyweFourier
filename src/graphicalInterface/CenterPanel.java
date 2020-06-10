@@ -65,6 +65,7 @@ public class CenterPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				update();
 				repaint();
+				
 			}
 			
 		});
