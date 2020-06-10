@@ -58,17 +58,19 @@ public class CenterPanel extends JPanel {
 
 	public void startAnimation(Complex[] comp) {
 		an=comp;
-		timer=new Timer(16,null);
-		timer.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				update();
-				repaint();
+		if(timer==null) {
+			timer=new Timer(16,null);
+			timer.addActionListener(new ActionListener(){
+	
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					update();
+					repaint();
+					
+				}
 				
-			}
-			
-		});
+			});
+		}
 		timer.start(); 
 		
 	}

@@ -51,9 +51,12 @@ public class Fourier extends JFrame
 	
 	public static void main(String[] args) 
 	{
-		Fourier fourier = new Fourier();
-		fourier.setVisible(true);
-		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Fourier fourier = new Fourier();
+				fourier.setVisible(true);
+			}
+		});
 
 	}
 

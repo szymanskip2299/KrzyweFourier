@@ -1,3 +1,8 @@
+//////////////////////////////
+//Autor:
+//Nika Jurczuk
+//////////////////////////////
+
 package graphicalInterface;
 
 
@@ -11,7 +16,7 @@ import javax.swing.JPanel;
 
 import org.apache.commons.math3.complex.Complex;
 
-public class Kardioida extends JPanel {
+public class Kardioida  {
 	
 	int[] x=new int[1000];
 	int[] y=new int[1000];
@@ -25,9 +30,9 @@ public class Kardioida extends JPanel {
 		elements=el;
 		centerPanel=cent;
 		int t;
-    	for(t=0;t<=x.length-1;t+=5)	 {
-			double xx=150*(1-Math.cos(t))*(Math.cos(t));
-			double yy=150*Math.sin(t)*(1-Math.cos(t));
+    	for(t=0;t<=x.length-1;t+=1)	 {
+			double xx=150*(1-Math.cos(2*Math.PI*t/1000))*(Math.cos(2*Math.PI*t/1000));
+			double yy=150*Math.sin(2*Math.PI*t/1000)*(1-Math.cos(2*Math.PI*t/1000));
 			x[t]=(int)xx;
 			y[t]=(int)yy;	
 		 }
@@ -40,20 +45,13 @@ public class Kardioida extends JPanel {
 		}
 		
 		lines.add(line);
-		line.addToAll((int)(centerPanel.getWidth()*0.7),(int)(centerPanel.getHeight()*0.5) );
+		line.addToAll((int)(centerPanel.getWidth()*0.5),(int)(centerPanel.getHeight()*0.5) );
 		Complex[] an=MathClass.fourier(getPoints(),elements);
 		centerPanel.startAnimation(an);
 		centerPanel.setOriginal(lines);
 	}
 	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		this.setBackground(Color.white);
-		Graphics2D g2d= (Graphics2D) g;
-        for (int i = 0; i <lines.size()-1; ++i) {
-        	lines.get(i).draw(g2d);
-        }    
-	}
+
 
 	public Complex[] getPoints(){ //ta funkcja zwaraca macierz gdzie kazda klumna odpowiada jednemu punktowi do ca³ki
 		int size=0;
@@ -64,8 +62,8 @@ public class Kardioida extends JPanel {
 		int j=0;
 		for(Line line:lines) {    //bierzemy wszsytkie punkty z wszystkich lin do jednej 
 			for(int i=0;i<line.getLength();i++) {
-				int x=line.getX(i)-(int)(getWidth()/2);    //punkty maja wspólrzedne jak w kartezjanskim o srodku w srodku panelu
-				int y=-line.getY(i)+(int)(getHeight()/2);
+				int x=line.getX(i)-(int)(centerPanel.getWidth()/2);    //punkty maja wspólrzedne jak w kartezjanskim o srodku w srodku panelu
+				int y=-line.getY(i)+(int)(centerPanel.getHeight()/2);
 				points[j]=new Complex(x,y);
 				j++;
 			}
@@ -73,7 +71,5 @@ public class Kardioida extends JPanel {
 		return points;	
 }
 	
-	public List<Line> getLines() {
-		return lines;
-	}	
+
 }

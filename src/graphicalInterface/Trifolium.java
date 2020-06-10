@@ -1,3 +1,7 @@
+//////////////////////////////
+//Autor:
+//Nika Jurczuk
+//////////////////////////////
 package graphicalInterface;
 
 
@@ -11,10 +15,10 @@ import javax.swing.JPanel;
 
 import org.apache.commons.math3.complex.Complex;
 
-public class Trifolium extends JPanel {
+public class Trifolium  {
 
-	int[] x=new int[100];
-	int[] y=new int[100];
+	int[] x=new int[1000];
+	int[] y=new int[1000];
 
 	 ArrayList<Line> lines;
 	
@@ -27,8 +31,8 @@ public class Trifolium extends JPanel {
 		int t;
     	for(t=0;t<=x.length-1;t+=1)	
 		 {
-			double xx=(-222*Math.cos(t))*(Math.cos(3*t));
-			double yy=222*Math.sin(t)*(-Math.cos(3*t));
+			double xx=(-222*Math.cos(2*Math.PI*t/1000))*(Math.cos(3*2*Math.PI*t/1000));
+			double yy=222*Math.sin(2*Math.PI*t/1000)*(-Math.cos(3*2*Math.PI*t/1000));
 			x[t]=(int)xx;
 			y[t]=(int)yy;
 		 }
@@ -46,14 +50,7 @@ public class Trifolium extends JPanel {
 		centerPanel.setOriginal(lines);
 	}
 	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		this.setBackground(Color.white);
-		Graphics2D g2d= (Graphics2D) g;
-        for (int i = 0; i <lines.size()-1; ++i) {
-        	lines.get(i).draw(g2d);
-        } 
-	}
+
 
 	public Complex[] getPoints(){ //ta funkcja zwaraca macierz gdzie kazda klumna odpowiada jednemu punktowi do ca³ki
 		int size=0;
@@ -64,8 +61,8 @@ public class Trifolium extends JPanel {
 		int j=0;
 		for(Line line:lines) {    //bierzemy wszsytkie punkty z wszystkich lin do jednej 
 			for(int i=0;i<line.getLength();i++) {
-				int x=line.getX(i)-(int)(getWidth()/2);    //punkty maja wspólrzedne jak w kartezjanskim o srodku w srodku panelu
-				int y=-line.getY(i)+(int)(getHeight()/2);
+				int x=line.getX(i)-(int)(centerPanel.getWidth()/2);    //punkty maja wspólrzedne jak w kartezjanskim o srodku w srodku panelu
+				int y=-line.getY(i)+(int)(centerPanel.getHeight()/2);
 				points[j]=new Complex(x,y);
 				j++;
 			}
@@ -73,7 +70,5 @@ public class Trifolium extends JPanel {
 		return points;	
 }
 	
-	public List<Line> getLines() {
-		return lines;
-	}
+
 }

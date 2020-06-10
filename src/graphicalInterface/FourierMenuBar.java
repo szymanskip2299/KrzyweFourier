@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 
 public class FourierMenuBar extends JMenuBar {
@@ -37,7 +38,10 @@ public class FourierMenuBar extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				final InfoBoxFrame autorFrame=new InfoBoxFrame("Autorzy","Nika Jurczuk i Pawe³ Szymañski");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Nika Jurczuk i Pawe³ Szymañski",
+					    "Autorzy",
+					    JOptionPane.PLAIN_MESSAGE);
 			}
 			
 		});

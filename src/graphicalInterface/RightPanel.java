@@ -198,38 +198,36 @@ public class RightPanel extends JPanel {
 	         
 	                if (selected.equals("Lemniskata Bernoulliego")) {
 	                	Lemniskata lem = new Lemniskata(centerPanel, elements);
-	                	lem.setVisible(true);
 	                	
 	                }	                	
 	                else if (selected.equals("Trifolium")) {
 	                	
 	                	Trifolium trif = new Trifolium(centerPanel, elements);
-	                	trif.setVisible(true);
 	   				 }
 	   			
 	                
 	                else if (selected.equals("Kardioida")) {
 	                	Kardioida kar = new Kardioida(centerPanel, elements);
-	                	kar.setVisible(true);
 	                }				
+	                isRunning=true;
 				}
 				
-				else {
+				else { //parametric
 					try {
-					double points[][]=MathClass.parametricPoints(xTField.getText(), yTField.getText());
-					ArrayList<Line> lines=new ArrayList<Line>();
-					Line line=new Line();
-					Complex data[]=new Complex[points.length];
-					for(int i=0;i<data.length;i++) {
-						line.addPoint((int)points[i][0],-(int)points[i][1]);
-						data[i]=new Complex(points[i][0],points[i][1]);
-					}
-					line.addToAll((int)(centerPanel.getWidth()*0.5),(int)(centerPanel.getHeight()*0.5) );
-					lines.add(line);
-					Complex an[]=MathClass.fourier(data,(int)elementsSpinner.getValue());
-					centerPanel.setOriginal(lines);
-					centerPanel.startAnimation(an);
-					isRunning=!isRunning;
+						double points[][]=MathClass.parametricPoints(xTField.getText(), yTField.getText());
+						ArrayList<Line> lines=new ArrayList<Line>();
+						Line line=new Line();
+						Complex data[]=new Complex[points.length];
+						for(int i=0;i<data.length;i++) {
+							line.addPoint((int)points[i][0],-(int)points[i][1]);
+							data[i]=new Complex(points[i][0],points[i][1]);
+						}
+						line.addToAll((int)(centerPanel.getWidth()*0.5),(int)(centerPanel.getHeight()*0.5) );
+						lines.add(line);
+						Complex an[]=MathClass.fourier(data,(int)elementsSpinner.getValue());
+						centerPanel.setOriginal(lines);
+						centerPanel.startAnimation(an);
+						isRunning=!isRunning;
 					}
 					catch(IllegalArgumentException exc) {
 						JOptionPane.showMessageDialog(new JFrame(),
