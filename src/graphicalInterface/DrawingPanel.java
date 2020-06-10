@@ -107,7 +107,6 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
 		lines.add(new Line());
 		lines.get(lines.size()-1).addPoint(e.getX(),e.getY());
 		repaint();

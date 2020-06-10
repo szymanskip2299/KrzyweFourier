@@ -44,7 +44,7 @@ import org.apache.commons.math3.complex.Complex;
 public class RightPanel extends JPanel {
 	private boolean isRunning;
 	private CenterPanel centerPanel;
-	private Examples ex;
+	private Lemniskata ex;
 	private JPanel panel1, panel2, panel3, panel4,panel5,panel6;
 	private JSpinner elementsSpinner;
 	private JSlider speedSlider;
@@ -185,8 +185,9 @@ public class RightPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(!isRunning) {
+				int elements=(int)elementsSpinner.getValue();
+
 				if(rButtonDraw.isSelected()) {
-					int elements=(int)elementsSpinner.getValue();
 					DrawingFrame drawingFrame=new DrawingFrame(centerPanel,RightPanel.this,elements);
 					drawingFrame.setVisible(true);
 					
@@ -196,35 +197,37 @@ public class RightPanel extends JPanel {
 	                String selected = (String) comboBoxExaples.getSelectedItem();
 	         
 	                if (selected.equals("Lemniskata Bernoulliego")) {
-	                	int elements=(int)elementsSpinner.getValue();
-	                	Examples ex = new Examples(elements);
-	                	ex.setVisible(true);
+	                	Lemniskata lem = new Lemniskata(centerPanel, elements);
 	                	
 	                }	                	
 	                else if (selected.equals("Trifolium")) {
-
-			                }
+	                	
+	                	Trifolium trif = new Trifolium(centerPanel, elements);
+	   				 }
+	   			
+	                
 	                else if (selected.equals("Kardioida")) {
-
+	                	Kardioida kar = new Kardioida(centerPanel, elements);
 	                }				
+	                isRunning=true;
 				}
 				
-				else {
+				else { //parametric
 					try {
-					double points[][]=MathClass.parametricPoints(xTField.getText(), yTField.getText());
-					ArrayList<Line> lines=new ArrayList<Line>();
-					Line line=new Line();
-					Complex data[]=new Complex[points.length];
-					for(int i=0;i<data.length;i++) {
-						line.addPoint((int)points[i][0],-(int)points[i][1]);
-						data[i]=new Complex(points[i][0],points[i][1]);
-					}
-					line.addToAll((int)(centerPanel.getWidth()*0.5),(int)(centerPanel.getHeight()*0.5) );
-					lines.add(line);
-					Complex an[]=MathClass.fourier(data,(int)elementsSpinner.getValue());
-					centerPanel.setOriginal(lines);
-					centerPanel.startAnimation(an);
-					isRunning=!isRunning;
+						double points[][]=MathClass.parametricPoints(xTField.getText(), yTField.getText());
+						ArrayList<Line> lines=new ArrayList<Line>();
+						Line line=new Line();
+						Complex data[]=new Complex[points.length];
+						for(int i=0;i<data.length;i++) {
+							line.addPoint((int)points[i][0],-(int)points[i][1]);
+							data[i]=new Complex(points[i][0],points[i][1]);
+						}
+						line.addToAll((int)(centerPanel.getWidth()*0.5),(int)(centerPanel.getHeight()*0.5) );
+						lines.add(line);
+						Complex an[]=MathClass.fourier(data,(int)elementsSpinner.getValue());
+						centerPanel.setOriginal(lines);
+						centerPanel.startAnimation(an);
+						isRunning=!isRunning;
 					}
 					catch(IllegalArgumentException exc) {
 						JOptionPane.showMessageDialog(new JFrame(),

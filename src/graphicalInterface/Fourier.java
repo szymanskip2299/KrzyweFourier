@@ -26,6 +26,7 @@ public class Fourier extends JFrame
 	    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    this.setSize(900,600);
 	    this.setLayout(new BorderLayout());
+	    this.setTitle("Krzywe Fouriera");
 	    
 	  //center panel
         centerPanel = new CenterPanel();
@@ -50,9 +51,12 @@ public class Fourier extends JFrame
 	
 	public static void main(String[] args) 
 	{
-		Fourier fourier = new Fourier();
-		fourier.setVisible(true);
-		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Fourier fourier = new Fourier();
+				fourier.setVisible(true);
+			}
+		});
 
 	}
 
